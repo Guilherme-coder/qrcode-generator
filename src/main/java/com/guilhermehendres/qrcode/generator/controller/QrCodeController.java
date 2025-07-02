@@ -4,10 +4,7 @@ import com.guilhermehendres.qrcode.generator.dto.QrCodeRequestDTO;
 import com.guilhermehendres.qrcode.generator.dto.QrCodeResponseDTO;
 import com.guilhermehendres.qrcode.generator.service.QrCodeGeneratorService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/qrcode")
@@ -27,5 +24,10 @@ public class QrCodeController {
             System.out.println(e);
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<QrCodeResponseDTO> test() {
+        return ResponseEntity.noContent().build();
     }
 }
