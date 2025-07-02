@@ -34,4 +34,4 @@ jobs:
       - name: Remove docker container
         run: docker rm -f qrcode-generator
       - name: Run docker container
-        run: docker run --env-file .env -p 8080:8080 qrcode-generator
+        run: docker run --env-file /home/ubuntu/qrcode-generator/.env -p 8080:8080 112113/qrcode-generator:latest
