@@ -24,3 +24,14 @@ jobs:
         run: docker build -t ${{secrets.DOCKER_USERNAME}}/qrcode-generator .
       - name: Push image docker
         run: docker push ${{secrets.DOCKER_USERNAME}}/qrcode-generator
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull ${{secrets.DOCKER_USERNAME}}/qrcode-generator:latest
+      - name: Remove docker container
+        run: docker rm -f qrcode-generator
+      - name: Run docker container
+        run: docker run --env-file .env -p 8080:8080 qrcode-generator
