@@ -30,11 +30,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Pull image from docker hub
-        working-directory: qrcode-generator
         run: docker pull ${{secrets.DOCKER_USERNAME}}/qrcode-generator:latest
       - name: Remove docker container
-        working-directory: qrcode-generator
         run: docker rm -f qrcode-generator
       - name: Run docker container
-        working-directory: qrcode-generator
         run: docker run --env-file .env -p 8080:8080 qrcode-generator
