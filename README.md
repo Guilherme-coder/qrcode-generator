@@ -11,7 +11,45 @@ This project is a REST API developed with **Java + Spring Boot** that generates 
 
 ---
 
-## How to run project
+
+## Deployment with GitHub Actions
+
+This project uses GitHub Actions for automated deployment to an AWS EC2 instance.
+
+Whenever changes are pushed to the prod branch, a workflow is triggered to:
+
+* Build the Docker image using Maven
+* Push the image to Docker Hub
+* On the EC2 instance (via self-hosted runner):
+  * Pull the latest image from Docker Hub
+  * Stop and remove the existing container (if running)
+  * Run the container in background using environment variables from .env
+
+### Prerequisites
+
+* A self-hosted GitHub Actions runner is configured on the EC2 instance  
+* Docker installed and running on the EC2  
+* .env file present at /home/ubuntu/qrcode-generator/.env (not versioned)  
+* Docker Hub account and credentials (used in secrets)
+
+### Required GitHub Secrets
+
+In my repository settings (Settings > Secrets and variables > Actions), i add:
+
+| Name            | Description                  |
+|-----------------|------------------------------|
+| DOCKER_USERNAME | My Docker Hub username       |
+| DOCKER_PASSWORD | My Docker Hub password/token |
+
+These are used in the build workflow to authenticate and push to Docker Hub.
+
+### Workflow Files
+
+The project uses two workflows:
+
+.github/workflows/prod.yml – builds and pushes the Docker image in build step and pull and run the Docker image in deploy step
+
+## How to run project locally
 
 ### Prerequisites
 
