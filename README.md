@@ -1,6 +1,33 @@
 # Gerador de QR Code com Spring Boot
 
 This project is a REST API developed with **Java + Spring Boot** that generates a QR Code from a URL. The generated QR Code is stored in Amazon S3 and returned.
+
+
+## Public Demo (EC2 instance) 
+
+You can test the API live using the public EC2 DNS:
+
+https://ec2-54-177-235-106.us-west-1.compute.amazonaws.com/qrcode/generate:8080
+Make sure to send a POST request with JSON content.
+
+### Example Request
+**POST** /qrcode/generate
+**Content-Type**: application/json
+
+```json
+{
+    "text": "www.youtube.com"
+}
+```
+
+Response (200 OK)
+```json
+{
+    "url": "https://qrcode-storager-s3.s3.us-east-2.amazonaws.com/d3fec855-4473-440d-aa14-1751c3df8a26"
+}
+```
+#### The returned url points to a publicly accessible QR Code stored on Amazon S3.
+
 ## Technologies used
 
 - Java 21+
@@ -10,7 +37,6 @@ This project is a REST API developed with **Java + Spring Boot** that generates 
 - Amazon S3 (AWS SDK)
 
 ---
-
 
 ## Deployment with GitHub Actions
 
